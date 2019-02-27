@@ -6,7 +6,7 @@
 /*   By: qduperon <qduperon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 13:37:13 by qduperon          #+#    #+#             */
-/*   Updated: 2019/02/27 14:13:38 by qduperon         ###   ########.fr       */
+/*   Updated: 2019/02/27 15:54:44 by qduperon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	*ft_realloc(void *ptr, size_t size)
 	int		diff;
 	t_alloc	*alloc;
 
-	if (size < 1)
+	if ((int)size < 1)
 		return (NULL);
 	if (!ptr)
 		return (ft_malloc(size));
