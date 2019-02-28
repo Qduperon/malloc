@@ -6,7 +6,7 @@
 /*   By: qduperon <qduperon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 13:37:13 by qduperon          #+#    #+#             */
-/*   Updated: 2019/02/28 14:35:33 by qduperon         ###   ########.fr       */
+/*   Updated: 2019/02/28 18:46:06 by qduperon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	*make_re(void *ptr, size_t size, size_t alloc_size)
 	size_t	i;
 
 	src = (char *)ptr;
-	if (!(dst = (char *)malloc(size)))
+	if (!(dst = (char *)ft_malloc(size)))
 		return (NULL);
 	i = 0;
 	while (i < size && i < alloc_size)
@@ -27,7 +27,7 @@ void	*make_re(void *ptr, size_t size, size_t alloc_size)
 		dst[i] = src[i];
 		i++;
 	}
-	free(ptr);
+	ft_free(ptr);
 	return ((void *)dst);
 }
 
@@ -46,31 +46,46 @@ void	resize(t_alloc *alloc, size_t size, int diff)
 	alloc->size = size;
 }
 
-void	*realloc(void *ptr, size_t size)
+void	*ft_realloc(void *ptr, size_t size)
 {
 	int		diff;
 	t_alloc	*alloc;
 
-	if ((int)size < 1)
-		return (NULL);
 	if (!ptr)
-		return (malloc(size));
-	if (!(alloc = search_alloc(ptr)))
+		return (ft_malloc(size));
+	if ((int)size < 1 || !(alloc = search_alloc(ptr)))
 		return (NULL);
+	while (size % 16 != 0)
+		size++;
 	diff = size - alloc->size;
 	if (diff == 0)
 		return (ptr);
-	else if (diff < 0 && -diff >= sizeof(t_alloc))
+	else if (diff < 0 && -diff >= (int)sizeof(t_alloc))
 	{
 		get_alloc(alloc, -diff);
 		return (ptr);
 	}
 	else if (alloc->next && diff > 0 && alloc->next->status == AVAILABLE
-			&& (int)alloc->next->size >= diff)
+		&& (int)alloc->next->size >= diff)
 	{
 		resize(alloc, size, diff);
 		return (ptr);
 	}
 	else
 		return (make_re(ptr, size, alloc->size));
+}
+
+void	*realloc(void *ptr, size_t size)
+{
+	void	*ret;
+
+	if (g_lock == 0)
+	{
+		g_lock = 1;
+		ret = ft_realloc(ptr, size);
+		g_lock = 0;
+		return (ret);
+	}
+	else
+		return (NULL);
 }

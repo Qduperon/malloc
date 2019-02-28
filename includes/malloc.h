@@ -6,7 +6,7 @@
 /*   By: qduperon <qduperon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 13:37:45 by qduperon          #+#    #+#             */
-/*   Updated: 2019/02/28 14:36:44 by qduperon         ###   ########.fr       */
+/*   Updated: 2019/02/28 18:48:21 by qduperon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,33 +25,37 @@
 
 # include <sys/mman.h>
 # include <unistd.h>
+# include <stdlib.h>
 
 # include "libft.h"
 
 typedef struct		s_map
 {
-	int				type;
 	size_t			size;
 	struct s_map	*next;
 	struct s_map	*previous;
 	struct s_alloc	*alloc;
+	int				type;
+	char			tmp[4];
 }					t_map;
 
 typedef struct		s_alloc
 {
-	int				status;
 	size_t			size;
 	struct s_alloc	*next;
 	struct s_alloc	*previous;
+	int				status;
+	char			tmp[4];
 }					t_alloc;
 
 t_map				*g_map;
+int					g_lock;
 
 /*
 ***	free.c
 */
 int					check_available(t_map *map);
-void				free(void *ptr);
+void				ft_free(void *ptr);
 void				merge_alloc(t_alloc *ptr);
 void				rm_map(t_map *map);
 
@@ -74,14 +78,19 @@ void				*new_map(size_t size);
 /*
 ***	malloc.c
 */
-void				*malloc(size_t size);
+void				*ft_malloc(size_t size);
 
 /*
 ***	realloc.c
 */
 void				*make_re(void *ptr, size_t size, size_t alloc_size);
-void				*realloc(void *ptr, size_t size);
+void				*ft_realloc(void *ptr, size_t size);
 void				resize(t_alloc *alloc, size_t size, int diff);
+
+/*
+*** reallocf.c
+*/
+void				*ft_reallocf(void *ptr, size_t size);
 
 /*
 ***	search.c

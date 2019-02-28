@@ -1,40 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   malloc.c                                           :+:      :+:    :+:   */
+/*   reallocf.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qduperon <qduperon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/27 13:37:24 by qduperon          #+#    #+#             */
-/*   Updated: 2019/02/28 18:28:03 by qduperon         ###   ########.fr       */
+/*   Created: 2019/02/28 18:35:47 by qduperon          #+#    #+#             */
+/*   Updated: 2019/02/28 18:35:58 by qduperon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
 
-void	*ft_malloc(size_t size)
+void	*ft_reallocf(void *ptr, size_t size)
 {
-	void *addr;
+	void *ret;
 
-	if ((int)size < 1)
+	if (!(ret = ft_realloc(ptr, size)))
+	{
+		ft_free(ptr);
 		return (NULL);
-	while (size % 16 != 0)
-		size++;
-	if ((addr = get_from_gmap(size)) != NULL)
-		return (addr);
-	if ((addr = new_map(size)) != NULL)
-		return (addr);
-	return (NULL);
+	}
+	return (ret);
 }
 
-void	*malloc(size_t size)
+void	*reallocf(void *ptr, size_t size)
 {
 	void	*ret;
 
 	if (g_lock == 0)
 	{
 		g_lock = 1;
-		ret = ft_malloc(size);
+		ret = ft_reallocf(ptr, size);
 		g_lock = 0;
 		return (ret);
 	}
