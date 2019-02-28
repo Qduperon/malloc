@@ -6,7 +6,7 @@
 /*   By: qduperon <qduperon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 13:37:13 by qduperon          #+#    #+#             */
-/*   Updated: 2019/02/27 15:54:44 by qduperon         ###   ########.fr       */
+/*   Updated: 2019/02/28 14:35:33 by qduperon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	*make_re(void *ptr, size_t size, size_t alloc_size)
 	size_t	i;
 
 	src = (char *)ptr;
-	if (!(dst = (char *)ft_malloc(size)))
+	if (!(dst = (char *)malloc(size)))
 		return (NULL);
 	i = 0;
 	while (i < size && i < alloc_size)
@@ -27,7 +27,7 @@ void	*make_re(void *ptr, size_t size, size_t alloc_size)
 		dst[i] = src[i];
 		i++;
 	}
-	ft_free(ptr);
+	free(ptr);
 	return ((void *)dst);
 }
 
@@ -46,7 +46,7 @@ void	resize(t_alloc *alloc, size_t size, int diff)
 	alloc->size = size;
 }
 
-void	*ft_realloc(void *ptr, size_t size)
+void	*realloc(void *ptr, size_t size)
 {
 	int		diff;
 	t_alloc	*alloc;
@@ -54,7 +54,7 @@ void	*ft_realloc(void *ptr, size_t size)
 	if ((int)size < 1)
 		return (NULL);
 	if (!ptr)
-		return (ft_malloc(size));
+		return (malloc(size));
 	if (!(alloc = search_alloc(ptr)))
 		return (NULL);
 	diff = size - alloc->size;

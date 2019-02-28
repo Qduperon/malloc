@@ -6,7 +6,7 @@
 /*   By: qduperon <qduperon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 13:37:45 by qduperon          #+#    #+#             */
-/*   Updated: 2019/02/27 14:33:18 by qduperon         ###   ########.fr       */
+/*   Updated: 2019/02/28 14:36:44 by qduperon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_map				*g_map;
 ***	free.c
 */
 int					check_available(t_map *map);
-void				ft_free(void *ptr);
+void				free(void *ptr);
 void				merge_alloc(t_alloc *ptr);
 void				rm_map(t_map *map);
 
@@ -74,13 +74,13 @@ void				*new_map(size_t size);
 /*
 ***	malloc.c
 */
-void				*ft_malloc(size_t size);
+void				*malloc(size_t size);
 
 /*
 ***	realloc.c
 */
 void				*make_re(void *ptr, size_t size, size_t alloc_size);
-void				*ft_realloc(void *ptr, size_t size);
+void				*realloc(void *ptr, size_t size);
 void				resize(t_alloc *alloc, size_t size, int diff);
 
 /*
