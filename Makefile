@@ -6,7 +6,7 @@
 #    By: qduperon <qduperon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/06/16 13:22:36 by qduperon          #+#    #+#              #
-#    Updated: 2019/02/28 18:38:42 by qduperon         ###   ########.fr        #
+#    Updated: 2019/03/01 13:49:26 by qduperon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ OBJSDIR = objs/
 
 CC = gcc
 
-FLAGS = -Wpadded -Wall -Werror -Wextra
+FLAGS = -Wall -Werror -Wextra
 
 SRCS =	calloc.c \
 		free.c \
