@@ -6,7 +6,7 @@
 /*   By: qduperon <qduperon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 13:42:23 by qduperon          #+#    #+#             */
-/*   Updated: 2019/02/27 14:10:34 by qduperon         ###   ########.fr       */
+/*   Updated: 2019/03/01 14:05:59 by qduperon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ size_t	get_map_size(size_t size, size_t type)
 				+ sizeof(t_map))
 			i++;
 	else
-		while (i * getpagesize() < ((size + sizeof(t_alloc)) * 1)
+		while (i * getpagesize() < ((size + sizeof(t_alloc) * 2) * 1)
 				+ sizeof(t_map))
 			i++;
 	return (getpagesize() * i);
