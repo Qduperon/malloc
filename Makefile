@@ -41,6 +41,8 @@ CC = gcc
 
 FLAGS = -Wall -Werror -Wextra
 
+HEADERS = malloc.h
+
 SRCS =	calloc.c \
 		free.c \
 		get.c \
@@ -61,7 +63,7 @@ OBJS = $(addprefix $(OBJSDIR),$(SRCS:.c=.o))
 #                            // COMPILATION \\                                 #
 #==============================================================================#
 
-$(OBJSDIR)%.o: $(SRCSDIR)%.c
+$(OBJSDIR)%.o: $(SRCSDIR)%.c $(addprefix $(INCSDIR),$(HEADERS))
 	mkdir -p $(OBJSDIR)
 	$(CC) $(FLAGS) -fPIC -I $(INCSDIR) -I libft/includes -o $@ -c $<
 
