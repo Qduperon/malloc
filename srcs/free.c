@@ -6,7 +6,7 @@
 /*   By: qduperon <qduperon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 13:37:32 by qduperon          #+#    #+#             */
-/*   Updated: 2019/02/28 18:29:21 by qduperon         ###   ########.fr       */
+/*   Updated: 2019/03/11 11:03:11 by qduperon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	merge_alloc(t_alloc *ptr)
 	}
 }
 
-void	ft_free(void *ptr)
+void	free(void *ptr)
 {
 	t_alloc *alloc;
 	t_map	*map;
@@ -76,14 +76,4 @@ void	ft_free(void *ptr)
 	merge_alloc(alloc);
 	if (map->type == LARGE && check_available(map) == TRUE)
 		rm_map(map);
-}
-
-void	free(void *ptr)
-{
-	if (g_lock == 0)
-	{
-		g_lock = 1;
-		ft_free(ptr);
-		g_lock = 0;
-	}
 }

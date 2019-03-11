@@ -6,7 +6,7 @@
 /*   By: qduperon <qduperon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 13:37:13 by qduperon          #+#    #+#             */
-/*   Updated: 2019/02/28 18:46:06 by qduperon         ###   ########.fr       */
+/*   Updated: 2019/03/11 11:06:21 by qduperon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	*make_re(void *ptr, size_t size, size_t alloc_size)
 	size_t	i;
 
 	src = (char *)ptr;
-	if (!(dst = (char *)ft_malloc(size)))
+	if (!(dst = (char *)malloc(size)))
 		return (NULL);
 	i = 0;
 	while (i < size && i < alloc_size)
@@ -27,7 +27,7 @@ void	*make_re(void *ptr, size_t size, size_t alloc_size)
 		dst[i] = src[i];
 		i++;
 	}
-	ft_free(ptr);
+	free(ptr);
 	return ((void *)dst);
 }
 
@@ -46,13 +46,13 @@ void	resize(t_alloc *alloc, size_t size, int diff)
 	alloc->size = size;
 }
 
-void	*ft_realloc(void *ptr, size_t size)
+void	*realloc(void *ptr, size_t size)
 {
 	int		diff;
 	t_alloc	*alloc;
 
 	if (!ptr)
-		return (ft_malloc(size));
+		return (malloc(size));
 	if ((int)size < 1 || !(alloc = search_alloc(ptr)))
 		return (NULL);
 	while (size % 16 != 0)
@@ -73,19 +73,4 @@ void	*ft_realloc(void *ptr, size_t size)
 	}
 	else
 		return (make_re(ptr, size, alloc->size));
-}
-
-void	*realloc(void *ptr, size_t size)
-{
-	void	*ret;
-
-	if (g_lock == 0)
-	{
-		g_lock = 1;
-		ret = ft_realloc(ptr, size);
-		g_lock = 0;
-		return (ret);
-	}
-	else
-		return (NULL);
 }
